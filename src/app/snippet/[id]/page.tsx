@@ -4,13 +4,13 @@ import Link from "next/link";
 import React from "react";
 
 type SnippetDetailsPageProps = {
-  params: {id: string };
+  params: Promise<{id: string }>;
 };
 
 const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
   params,
 }) => {
-  const id = parseInt((params)?.id);
+  const id = parseInt((await params)?.id);
 
   const snippet = await prisma.snippet.findUnique({
     where: {
