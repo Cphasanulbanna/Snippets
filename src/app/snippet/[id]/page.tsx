@@ -2,6 +2,7 @@ import { deleteSnippet } from "@/actions";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 type SnippetDetailsPageProps = {
@@ -21,7 +22,7 @@ const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
 
   const deleteSnippetAction = deleteSnippet.bind(null, id);
 
-  if (!snippet) return <h1>Snippet not Found</h1>;
+  if (!snippet) return notFound()
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-end gap-x-2">
@@ -29,7 +30,7 @@ const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
           <Button>Edit</Button>
         </Link>
         <form action={deleteSnippetAction}>
-          <Button variant={"destructive"}>Delete</Button>
+          <Button type="submit" variant={"destructive"}>Delete</Button>
         </form>
       </div>
       <h1 className="font-semibold">{snippet?.title}</h1>
