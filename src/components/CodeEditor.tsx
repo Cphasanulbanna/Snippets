@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Snippet } from "@/generated/prisma";
 import { Editor } from "@monaco-editor/react";
@@ -9,10 +8,17 @@ import { saveSnippet } from "@/actions";
 const CodeEditor = ({ snippet }: { snippet: Snippet }) => {
   const [code, setCode] = useState(snippet.code);
 
+  const handleChange = (value: string = "") => {
+    setCode(value);
+  };
+
   const saveSnippetAction = saveSnippet.bind(null, snippet.id, code);
   return (
-    <div  className="flex flex-col gap-3 w-2/5 p-2">
-      <form action={saveSnippetAction} className="flex justify-between item-center">
+    <div className="flex flex-col gap-3 w-2/5 p-2">
+      <form
+        action={saveSnippetAction}
+        className="flex justify-between item-center"
+      >
         <h2>Code Editor:</h2>
         <Button>Save</Button>
       </form>
@@ -23,6 +29,7 @@ const CodeEditor = ({ snippet }: { snippet: Snippet }) => {
           theme="vs-dark"
           defaultLanguage="javascript"
           defaultValue={code}
+          onChange={handleChange}
         />
       </div>
     </div>

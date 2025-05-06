@@ -27,8 +27,8 @@ const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
         </Link>
         <Button variant={"destructive"}>Delete</Button>
       </div>
-      <h1>{snippet?.title}</h1>
-      <pre>
+      <h1 className="font-semibold">{snippet?.title}</h1>
+      <pre className="bg-gray-200 p-3 rounded-md">
         <code>{snippet?.code}</code>
       </pre>
     </div>
