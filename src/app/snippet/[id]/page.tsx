@@ -22,7 +22,7 @@ const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
 
   const deleteSnippetAction = deleteSnippet.bind(null, id);
 
-  if (!snippet) return notFound()
+  if (!snippet) return notFound();
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-end gap-x-2">
@@ -30,7 +30,9 @@ const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
           <Button>Edit</Button>
         </Link>
         <form action={deleteSnippetAction}>
-          <Button type="submit" variant={"destructive"}>Delete</Button>
+          <Button type="submit" variant={"destructive"}>
+            Delete
+          </Button>
         </form>
       </div>
       <h1 className="font-semibold">{snippet?.title}</h1>
@@ -42,3 +44,11 @@ const SnippetDetailsPage: React.FC<SnippetDetailsPageProps> = async ({
 };
 
 export default SnippetDetailsPage;
+
+export const generateStaticParams = async () => {
+  const snippets = await prisma.snippet.findMany();
+
+  return snippets?.map((snippet) => {
+    return { id: snippet.id?.toString() };
+  });
+};
